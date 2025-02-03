@@ -9,7 +9,7 @@
     <link rel="icon" href="Assets/favicon.png" type="image/png">
 
     <!-- Stylesheet -->
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="home.css">
 </head>
 <body>
 
@@ -75,7 +75,7 @@
     </div>
 
     <div class="icon-linkedin">
-        <!-- Link ke Binus menggunakan URL scheme -->
+        <!-- Link ke linkedin menggunakan URL scheme -->
         <a href="https://linkedin.com/" target="_blank" rel="noopener noreferrer">
             <img class="icon-linkedin" src="/Assets/linkedin-icon.png" alt="icon-linkedin">
         </a>
@@ -155,11 +155,51 @@
         displayBatteryPercentage();
     </script>
 
+    <div class="icon-youtube">
+        <!-- Link ke Youtube menggunakan URL scheme -->
+        <a href="https://youtube.com/" target="_blank" rel="noopener noreferrer">
+            <img class="icon-youtube" src="/Assets/youtube-icon.png" alt="icon-youtube">
+        </a>
+    </div>
+
+    <div class="icon-spotify">
+        <!-- Link ke Spotify menggunakan URL scheme -->
+        <a href="spotify://spotify.com" target="_blank" rel="noopener noreferrer">
+            <img class="icon-spotify" src="/Assets/spotify-icon.png" alt="icon-spotify">
+        </a>
+    </div>
+
+    <!-- logout button -->
+    <div class="logout-button-container">
+        <!-- Tambahkan ID ke elemen logout -->
+        <div id="button-logout" class="button-logout">Logout</div>
+    </div>
+    
+    <script>
+        // Tambahkan event listener setelah halaman dimuat
+        document.addEventListener('DOMContentLoaded', function() {
+            // Temukan elemen dengan ID 'button-logout'
+            const logoutButton = document.getElementById('button-logout');
+    
+            // Tambahkan event listener untuk mengarahkan ke halaman login
+            logoutButton.addEventListener('click', function() {
+                // Tampilkan pop-up konfirmasi
+                const isConfirmed = confirm('Apakah kamu yakin mau keluar?');
+    
+                // Jika pengguna memilih "OK", redirect ke halaman login
+                if (isConfirmed) {
+                    window.location.href = 'index.html'; // Ganti dengan URL halaman login Anda
+                }
+                // Jika pengguna memilih "Cancel", tidak ada tindakan
+            });
+        });
+    </script>
 
 
 </div>
 
     <!-- script section -->
     <script src="Scripts/inspect-element.js"></script>
+    <script src="Scripts/logout.js"></script>
 </body>
 </html>
