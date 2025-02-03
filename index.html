@@ -97,7 +97,8 @@
                     const batteryLevel = Math.round(battery.level * 100); // Menghitung persentase baterai
                     batteryLevelElement.textContent = `${batteryLevel}%`;
 
-                    // Periksa apakah baterai rendah (kurang dari atau sama dengan 20%)
+                    // Periksa apakah baterai rendah (kurang dari atau sama dengan 20%) 
+                    // (angka 20 adalah jika baterai laptop sudah di 20% akan mengeluarkan sebuah pesan untuk mengecas device, bisa di custom angka 20 nya)
                     if (batteryLevel <= 20) {
                         batteryLowMessageElement.textContent = "Bos, baterai laptop low, segera charge untuk pengisian baterai device mu";
                         batteryLowMessageElement.style.color = "red";
