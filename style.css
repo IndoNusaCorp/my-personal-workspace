@@ -108,6 +108,34 @@ body {
     cursor: pointer;
 }
 
+.google-icon {
+    display: flex;
+    border-radius: 25px;
+    margin-top: -233px;
+    margin-left: 900px;
+    cursor: pointer;
+}
+
+.icon-chat-gpt {
+    display: flex;
+    border-radius: 25px;
+    margin-top: -116px;
+    margin-left: 570px;
+    cursor: pointer;
+}
+
+.icon-qwen-ai {
+    display: flex;
+    border-radius: 25px;
+    margin-top: -98px;
+    margin-left: 693px;
+    cursor: pointer;
+}
+
+
+
+
+
 
 
 
