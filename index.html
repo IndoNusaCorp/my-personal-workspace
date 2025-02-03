@@ -3,163 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yizhreel | Personal Workspace</title>
-
-    <!-- Favicon -->
-    <link rel="icon" href="Assets/favicon.png" type="image/png">
-
-    <!-- Stylesheet -->
-    <link rel="stylesheet" href="style.css">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="login.css">
 </head>
 <body>
-
-    <!-- Background Website -->
-    <div class="background-website"></div>
-
-    <!-- navbar -->
-    <div class="navigation-container">
-        <nav class="brand-name">Welcome Bos🫡 | Yizhreel</nav>
+    <div class="login-container">
+        <h2>Login</h2>
+        <form id="loginForm">
+            <div class="input-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="input-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <button type="submit">Login</button>
+            <p id="errorMessage" class="error-message"></p>
+        </form>
     </div>
 
-    <!-- Content -->
-    <div class="content-container">
-        <div class="text-content">Ayo mulai hari mu dengan semangat!</div>
-        <div class="rectangle-content">Bos, ini ada list aplikasi yang sering kamu pakai, boleh silahkan bos🫡</div>
-        <div class="icon-discord">
-        <!-- Link ke Discord menggunakan URL scheme -->
-        <a href="discord://discord.com" target="_blank" rel="noopener noreferrer">
-            <img class="discord-icon" src="/Assets/discord-icon.jpeg" alt="discord-icon">
-        </a>
-    </div>
-
-    <div class="icon-whatsapp">
-        <!-- Link ke Whatsapp menggunakan URL scheme -->
-        <a href="whatsapp://web.whatsapp.com" target="_blank" rel="noopener noreferrer">
-            <img class="whatsapp-icon" src="/Assets/whatsapp-icon.png" alt="whatsapp-icon">
-    </a>
-
-    <div class="icon-roblox">
-            <!-- Link ke Roblox menggunakan URL scheme -->
-            <a href="roblox://roblox.com" target="_blank" rel="noopener noreferrer">
-                <img class="roblox-icon" src="/Assets/roblox-icon.jpeg" alt="roblox-icon">
-            </a>
-        </div>
-    </div>
-
-    <div class="icon-google">
-        <!-- Link ke Google menggunakan URL scheme -->
-        <a href="https://google.com" target="_blank" rel="noopener noreferrer">
-            <img class="google-icon" src="/Assets/google-icon.png" alt="google-icon">
-        </a>
-    </div>
-
-    <div class="icon-chat-gpt">
-        <!-- Link ke ChatGPT menggunakan URL scheme -->
-        <a href="https://chat.openai.com/" target="_blank" rel="noopener noreferrer">
-            <img class="icon-chat-gpt" src="/Assets/chatgpt-icon.png" alt="icon-chat-gpt">
-        </a>
-    </div>
-
-    <div class="icon-qwen-ai">
-        <!-- Link ke qwen menggunakan URL scheme -->
-        <a href="https://chat.qwenlm.ai/" target="_blank" rel="noopener noreferrer">
-            <img class="icon-qwen-ai" src="/Assets/qwen-icon.jpeg" alt="icon-qwen-ai">
-        </a>
-    </div>
-
-    <div class="icon-binusmaya">
-        <!-- Link ke Binus menggunakan URL scheme -->
-        <a href="https://lms.binus.ac.id/" target="_blank" rel="noopener noreferrer">
-            <img class="icon-binusmaya" src="/Assets/binusmaya-icon.jpeg" alt="icon-binusmaya">
-        </a>
-    </div>
-
-    <div class="icon-linkedin">
-        <!-- Link ke Binus menggunakan URL scheme -->
-        <a href="https://linkedin.com/" target="_blank" rel="noopener noreferrer">
-            <img class="icon-linkedin" src="/Assets/linkedin-icon.png" alt="icon-linkedin">
-        </a>
-    </div>
-
-    <div class="battery-percentage-container">
-        <div class="battery-percentage">Baterai kamu: <span class="batteryLevel">Checking...</span></div>
-        <div class="battery-low-message" id="batteryLowMessage"></div>
-    </div>
-
-    <script>
-        // Fungsi untuk menampilkan persentase baterai dan memeriksa status baterai rendah
-        function displayBatteryPercentage() {
-            const batteryLevelElement = document.querySelector('.batteryLevel');
-            const batteryLowMessageElement = document.getElementById('batteryLowMessage');
-
-            if ('getBattery' in navigator) {
-                navigator.getBattery().then(function(battery) {
-                    const batteryLevel = Math.round(battery.level * 100); // Menghitung persentase baterai
-                    batteryLevelElement.textContent = `${batteryLevel}%`;
-
-                    // Periksa apakah baterai rendah (kurang dari atau sama dengan 20%) 
-                    // (angka 20 adalah jika baterai laptop sudah di 20% akan mengeluarkan sebuah pesan untuk mengecas device, bisa di custom angka 20 nya)
-                    if (batteryLevel <= 20) {
-                        batteryLowMessageElement.textContent = "Bos, baterai laptop low, segera charge untuk pengisian baterai device mu";
-                        batteryLowMessageElement.style.color = "red";
-
-                        // Tampilkan notifikasi browser jika baterai rendah
-                        if (!("Notification" in window)) {
-                            console.log("Browser ini tidak mendukung notifikasi.");
-                        } else if (Notification.permission === "granted") {
-                            new Notification("Battery Low", {
-                                body: "Bos, baterai laptop low, segera charge untuk pengisian baterai device mu",
-                                icon: "https://img.icons8.com/color/48/battery--v1.png"
-                            });
-                        } else if (Notification.permission !== "denied") {
-                            Notification.requestPermission().then(function(permission) {
-                                if (permission === "granted") {
-                                    new Notification("Battery Low", {
-                                        body: "Bos, baterai laptop low, segera charge untuk pengisian baterai device mu",
-                                        icon: "https://img.icons8.com/color/48/battery--v1.png"
-                                    });
-                                }
-                            });
-                        }
-                    } else {
-                        batteryLowMessageElement.textContent = ""; // Kosongkan pesan jika baterai normal
-                    }
-
-                    // Listener untuk perubahan level baterai secara real-time
-                    battery.addEventListener('levelchange', function() {
-                        const updatedBatteryLevel = Math.round(battery.level * 100);
-                        batteryLevelElement.textContent = `${updatedBatteryLevel}%`;
-
-                        if (updatedBatteryLevel <= 20) {
-                            batteryLowMessageElement.textContent = "Bos, baterai laptop low, segera charge untuk pengisian baterai device mu";
-                            batteryLowMessageElement.style.color = "red";
-
-                            // Tampilkan notifikasi jika baterai rendah
-                            if (Notification.permission === "granted") {
-                                new Notification("Battery Low", {
-                                    body: "Bos, baterai laptop low, segera charge untuk pengisian baterai device mu",
-                                    icon: "https://img.icons8.com/color/48/battery--v1.png"
-                                });
-                            }
-                        } else {
-                            batteryLowMessageElement.textContent = "";
-                        }
-                    });
-                });
-            } else {
-                batteryLevelElement.textContent = "API tidak didukung";
-            }
-        }
-
-        // Panggil fungsi untuk menampilkan persentase baterai
-        displayBatteryPercentage();
-    </script>
-
-
-
-</div>
-
-    <!-- script section -->
-    <script src="Scripts/inspect-element.js"></script>
+    <script src="Scripts/login.js"></script>
 </body>
 </html>
