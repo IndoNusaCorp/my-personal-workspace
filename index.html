@@ -81,12 +81,84 @@
         </a>
     </div>
 
+    <div class="battery-percentage-container">
+        <div class="battery-percentage">Baterai kamu: <span class="batteryLevel">Checking...</span></div>
+        <div class="battery-low-message" id="batteryLowMessage"></div>
+    </div>
+
+    <script>
+        // Fungsi untuk menampilkan persentase baterai dan memeriksa status baterai rendah
+        function displayBatteryPercentage() {
+            const batteryLevelElement = document.querySelector('.batteryLevel');
+            const batteryLowMessageElement = document.getElementById('batteryLowMessage');
+
+            if ('getBattery' in navigator) {
+                navigator.getBattery().then(function(battery) {
+                    const batteryLevel = Math.round(battery.level * 100); // Menghitung persentase baterai
+                    batteryLevelElement.textContent = `${batteryLevel}%`;
+
+                    // Periksa apakah baterai rendah (kurang dari atau sama dengan 20%)
+                    if (batteryLevel <= 20) {
+                        batteryLowMessageElement.textContent = "Bos, baterai laptop low, segera charge untuk pengisian baterai device mu";
+                        batteryLowMessageElement.style.color = "red";
+
+                        // Tampilkan notifikasi browser jika baterai rendah
+                        if (!("Notification" in window)) {
+                            console.log("Browser ini tidak mendukung notifikasi.");
+                        } else if (Notification.permission === "granted") {
+                            new Notification("Battery Low", {
+                                body: "Bos, baterai laptop low, segera charge untuk pengisian baterai device mu",
+                                icon: "https://img.icons8.com/color/48/battery--v1.png"
+                            });
+                        } else if (Notification.permission !== "denied") {
+                            Notification.requestPermission().then(function(permission) {
+                                if (permission === "granted") {
+                                    new Notification("Battery Low", {
+                                        body: "Bos, baterai laptop low, segera charge untuk pengisian baterai device mu",
+                                        icon: "https://img.icons8.com/color/48/battery--v1.png"
+                                    });
+                                }
+                            });
+                        }
+                    } else {
+                        batteryLowMessageElement.textContent = ""; // Kosongkan pesan jika baterai normal
+                    }
+
+                    // Listener untuk perubahan level baterai secara real-time
+                    battery.addEventListener('levelchange', function() {
+                        const updatedBatteryLevel = Math.round(battery.level * 100);
+                        batteryLevelElement.textContent = `${updatedBatteryLevel}%`;
+
+                        if (updatedBatteryLevel <= 20) {
+                            batteryLowMessageElement.textContent = "Bos, baterai laptop low, segera charge untuk pengisian baterai device mu";
+                            batteryLowMessageElement.style.color = "red";
+
+                            // Tampilkan notifikasi jika baterai rendah
+                            if (Notification.permission === "granted") {
+                                new Notification("Battery Low", {
+                                    body: "Bos, baterai laptop low, segera charge untuk pengisian baterai device mu",
+                                    icon: "https://img.icons8.com/color/48/battery--v1.png"
+                                });
+                            }
+                        } else {
+                            batteryLowMessageElement.textContent = "";
+                        }
+                    });
+                });
+            } else {
+                batteryLevelElement.textContent = "API tidak didukung";
+            }
+        }
+
+        // Panggil fungsi untuk menampilkan persentase baterai
+        displayBatteryPercentage();
+    </script>
+
+
 
 </div>
 
     <!-- script section -->
     <script src="Scripts/inspect-element.js"></script>
-        
-
 </body>
 </html>
