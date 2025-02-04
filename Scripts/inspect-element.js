@@ -1,6 +1,6 @@
 document.addEventListener('contextmenu', function(event) {
     event.preventDefault();
-    alert('Klik kanan dinonaktifkan!');
+    alert('Hanya di gunakan oleh developer');
 });
 
 document.addEventListener('keydown', function(event) {
@@ -10,6 +10,6 @@ document.addEventListener('keydown', function(event) {
         (event.ctrlKey && event.key === 'U')
     ) {
         event.preventDefault();
-        alert('Akses Developer Tools dibatasi!');
+        alert('Akses di blokir, digunakan hanya untuk developer');
     }
 });
